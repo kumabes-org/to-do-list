@@ -1,0 +1,44 @@
+name: "Default Workflow"
+
+on: push
+
+jobs:
+  call-workflow-ci-java-gradle:
+    uses: kumabes-org/reusable-workflows-ci-java-gradle/.github/workflows/ci.yml@main
+    with:
+      runs-on: "ubuntu-latest"
+      environment: "production"
+      working-directory: "app"
+      shell: "bash"
+      project-name: "to-do-list"
+      java-distribution: "zulu"
+      java-version: "21"
+      gradle-version: "8.11.1"
+    secrets: inherit
+
+  # call-workflow-sonarqube:
+  #   needs:
+  #     - call-workflow-ci-java-gradle
+  #   uses: kumabes-org/reusable-workflows-sonarqube/.github/workflows/main.yml@main
+  #   with:
+  #     runs-on: "ubuntu-latest"
+  #     environment: "production"
+  #     working-directory: "app"
+  #     shell: "bash"
+  #     project-name: "to-do-list"
+  #     language: "java"
+  #     build: "gradle"
+  #   secrets: inherit
+
+  # call-workflow-codeql:
+  #   needs:
+  #     - call-workflow-ci-java-gradle
+  #   uses: kumabes-org/reusable-workflows-codeql/.github/workflows/main.yml@main
+  #   with:
+  #     runs-on: "ubuntu-latest"
+  #     environment: "production"
+  #     working-directory: "app"
+  #     shell: "bash"
+  #     project-name: "to-do-list"
+  #     languages: "java"
+  #   secrets: inherit
